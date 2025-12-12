@@ -9,6 +9,7 @@ export interface ProductKit {
   id: string;
   label: string; // e.g. "1 Pote", "3 Frascos"
   price: number; // The base price for this specific kit
+  link: string; // Checkout URL for this specific kit
 }
 
 export interface Product {
@@ -16,6 +17,7 @@ export interface Product {
   title: string;
   description: string;
   image: string;
+  imageScale: number; // Scale percentage (e.g., 100, 110, 120)
   kits: ProductKit[];
 }
 
@@ -23,7 +25,10 @@ export interface AppConfig {
   profileName: string;
   profileBio: string;
   profileImage: string;
+  profileImageScale: number; // Scale percentage
   videoUrl: string; 
+  whatsappNumber: string; // e.g. "5511999999999"
+  whatsappMessage: string; // Default message
   couponCode: string;
   discountPercent: number; // 0 to 100
   products: Product[];
@@ -35,10 +40,11 @@ const defaultProducts: Product[] = [
     title: 'Secaps Black',
     description: 'Energia, Foco e Força.',
     image: product1Image,
+    imageScale: 110,
     kits: [
-      { id: 'k1-1', label: '1 Pote', price: 97.00 },
-      { id: 'k1-2', label: '3 Potes', price: 197.00 }, // Example bulk pricing
-      { id: 'k1-3', label: '5 Potes', price: 297.00 },
+      { id: 'k1-1', label: '1 Pote', price: 97.00, link: '#' },
+      { id: 'k1-2', label: '3 Potes', price: 197.00, link: '#' },
+      { id: 'k1-3', label: '5 Potes', price: 297.00, link: '#' },
     ]
   },
   {
@@ -46,10 +52,11 @@ const defaultProducts: Product[] = [
     title: 'Secaps Chá',
     description: 'Chá misto solúvel.',
     image: product2Image,
+    imageScale: 100,
     kits: [
-      { id: 'k2-1', label: '1 Pote', price: 87.00 },
-      { id: 'k2-2', label: '3 Potes', price: 177.00 },
-      { id: 'k2-3', label: '5 Potes', price: 247.00 },
+      { id: 'k2-1', label: '1 Pote', price: 87.00, link: '#' },
+      { id: 'k2-2', label: '3 Potes', price: 177.00, link: '#' },
+      { id: 'k2-3', label: '5 Potes', price: 247.00, link: '#' },
     ]
   }
 ];
@@ -58,7 +65,10 @@ const defaultConfig: AppConfig = {
   profileName: "Tania Vi",
   profileBio: "Wellness & Lifestyle Creator ✨\nHelping you live your best healthy life.",
   profileImage: defaultProfile,
+  profileImageScale: 100,
   videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", 
+  whatsappNumber: "5511999999999",
+  whatsappMessage: "Olá, gostaria de saber mais sobre os produtos!",
   couponCode: "BEMVINDO",
   discountPercent: 0,
   products: defaultProducts,

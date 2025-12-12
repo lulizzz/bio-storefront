@@ -14,6 +14,7 @@ export function ProductList() {
             title={product.title} 
             description={product.description}
             image={product.image}
+            imageScale={product.imageScale}
             kits={product.kits}
             discountPercent={config.discountPercent}
           />

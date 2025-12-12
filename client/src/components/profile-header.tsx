@@ -1,16 +1,23 @@
 import { useConfig } from "@/lib/store";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Instagram, Youtube, Twitter } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
 export function ProfileHeader() {
   const { config } = useConfig();
+  
+  const whatsappLink = `https://wa.me/${config.whatsappNumber}?text=${encodeURIComponent(config.whatsappMessage)}`;
 
   return (
     <div className="flex flex-col items-center text-center space-y-4 mb-8">
-      <div className="relative">
+      <div className="relative overflow-visible">
         <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-primary/20 to-secondary opacity-70 blur-sm animate-pulse" />
-        <Avatar className="w-24 h-24 border-2 border-white shadow-lg relative">
-          <AvatarImage src={config.profileImage} alt={config.profileName} className="object-cover" />
+        <Avatar className="w-24 h-24 border-2 border-white shadow-lg relative overflow-hidden">
+          <AvatarImage 
+            src={config.profileImage} 
+            alt={config.profileName} 
+            className="object-cover transition-transform" 
+            style={{ transform: `scale(${config.profileImageScale / 100})` }}
+          />
           <AvatarFallback>{config.profileName.substring(0, 2).toUpperCase()}</AvatarFallback>
         </Avatar>
       </div>
@@ -22,19 +29,17 @@ export function ProfileHeader() {
         </p>
       </div>
 
-      <div className="flex items-center gap-4 pt-2">
-        <SocialButton icon={<Instagram className="w-5 h-5" />} href="#" colorClass="hover:text-pink-600" />
-        <SocialButton icon={<Youtube className="w-5 h-5" />} href="#" colorClass="hover:text-red-600" />
-        <SocialButton icon={<Twitter className="w-5 h-5" />} href="#" colorClass="hover:text-blue-400" />
+      <div className="pt-2">
+        <a 
+          href={whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 text-green-700 hover:bg-green-100 transition-colors duration-300 shadow-sm border border-green-200"
+        >
+          <MessageCircle className="w-4 h-4" />
+          <span className="text-xs font-bold">Tem dúvidas? Me chama no whats</span>
+        </a>
       </div>
     </div>
-  );
-}
-
-function SocialButton({ icon, href, colorClass }: { icon: React.ReactNode, href: string, colorClass: string }) {
-  return (
-    <a href={href} className={`p-2 rounded-full bg-white shadow-sm hover:scale-110 hover:shadow-md transition-all duration-300 text-foreground/80 ${colorClass}`}>
-      {icon}
-    </a>
   );
 }

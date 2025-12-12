@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
 import { ChevronRight } from "lucide-react";
 import type { ProductKit } from "@/lib/store";
 
@@ -8,22 +7,20 @@ interface SplitButtonProps {
   title: string;
   description?: string;
   image: string;
+  imageScale?: number;
   kits: ProductKit[];
   discountPercent?: number;
-  onSelect?: (kitLabel: string) => void;
 }
 
-export function SplitButton({ title, description, image, kits, discountPercent = 0, onSelect }: SplitButtonProps) {
-  const { toast } = useToast();
-
+export function SplitButton({ title, description, image, imageScale = 100, kits, discountPercent = 0 }: SplitButtonProps) {
+  
   const handleSelect = (kit: ProductKit) => {
-    toast({
-      title: "Adicionado ao Carrinho",
-      description: `Você selecionou: ${kit.label} de ${title}`,
-      duration: 2000,
-      className: "bg-primary text-primary-foreground border-none shadow-lg",
-    });
-    if (onSelect) onSelect(kit.label);
+    // Navigate to the checkout link
+    if (kit.link && kit.link !== '#') {
+      window.open(kit.link, '_blank');
+    } else {
+      console.log("No link configured for this kit");
+    }
   };
 
   return (
@@ -31,14 +28,15 @@ export function SplitButton({ title, description, image, kits, discountPercent =
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="relative w-full mb-12 mt-8" // Added margin top for floating image space
+      className="relative w-full mb-12 mt-8" // Margin top for floating image space
     >
       {/* Floating Image - Positioned absolute to overlap */}
-      <div className="absolute -top-6 -left-2 z-20 w-28 h-28 drop-shadow-xl filter pointer-events-none">
+      <div className="absolute -top-6 -left-2 z-20 w-28 h-28 drop-shadow-xl filter pointer-events-none flex items-center justify-center">
          <img 
            src={image} 
            alt={title} 
-           className="w-full h-full object-contain transform -rotate-6 scale-110" 
+           className="max-w-full max-h-full object-contain transform -rotate-6 transition-transform" 
+           style={{ transform: `rotate(-6deg) scale(${imageScale / 100})` }}
          />
       </div>
 
