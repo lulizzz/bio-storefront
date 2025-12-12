@@ -5,20 +5,34 @@ import type { ReactNode } from "react";
 export function ProductList() {
   const { config } = useConfig();
 
+  // Calculate total number of action buttons across all products to coordinate the animation loop
+  const totalButtons = config.products.reduce((acc, product) => acc + product.kits.length, 0);
+
+  let currentGlobalIndex = 0;
+
   return (
     <div className="space-y-6">
       <Section title="Ofertas Especiais">
-        {config.products.map(product => (
-          <SplitButton 
-            key={product.id}
-            title={product.title} 
-            description={product.description}
-            image={product.image}
-            imageScale={product.imageScale}
-            kits={product.kits}
-            discountPercent={config.discountPercent}
-          />
-        ))}
+        {config.products.map(product => {
+          // Capture the start index for this product's kits
+          const startIndex = currentGlobalIndex;
+          // Increment the global counter for the next product
+          currentGlobalIndex += product.kits.length;
+
+          return (
+            <SplitButton 
+              key={product.id}
+              title={product.title} 
+              description={product.description}
+              image={product.image}
+              imageScale={product.imageScale}
+              kits={product.kits}
+              discountPercent={config.discountPercent}
+              startIndex={startIndex}
+              totalButtons={totalButtons}
+            />
+          );
+        })}
       </Section>
     </div>
   );
