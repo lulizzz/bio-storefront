@@ -1,0 +1,56 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--access-token",
+        "sbp_3652d0c4ebfe96aa4ba31cb96c599b70bb55cdca"
+      ]
+    },
+    "@21st-dev/magic": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@21st-dev/magic@latest",
+        "API_KEY=236909dd530cd4ecae49427c4ac55a2eca628e748da7aa3f13ebc6684a50bcab"
+      ]
+    },
+    "@jpisnice/shadcn-ui-mcp-server": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@jpisnice/shadcn-ui-mcp-server",
+        "--github-api-key",
+        "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"
+      ]
+    },
+    "notionApi": {
+      "command": "npx",
+      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "env": {
+        "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer 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\", \"Notion-Version\": \"2022-06-28\"}"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "C:\\"]
+    },
+    "playwright": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@playwright/mcp@latest"
+      ]
+    }
+  }
+}
